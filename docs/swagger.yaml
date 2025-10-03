@@ -1,0 +1,1827 @@
+basePath: /api
+definitions:
+  models.Application:
+    properties:
+      company_name:
+        example: Tech Innovations Inc.
+        type: string
+      cover_letter:
+        example: I am very excited to apply for this role. I believe my experience
+          and passion make me a strong fit.
+        type: string
+      created_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      first_name:
+        example: Ali
+        type: string
+      id:
+        example: 1
+        type: integer
+      job_id:
+        example: 101
+        type: integer
+      job_seeker_id:
+        example: 55
+        type: integer
+      job_title:
+        description: Additional fields for detailed responses
+        example: Backend Engineer
+        type: string
+      last_name:
+        example: Khalil
+        type: string
+      status:
+        example: pending
+        type: string
+      updated_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+    type: object
+  models.ApplicationInput:
+    properties:
+      cover_letter:
+        example: I'm highly motivated to join your team. Here's why I think I'd be
+          a great fit...
+        type: string
+      job_id:
+        example: 101
+        type: integer
+    required:
+    - job_id
+    type: object
+  models.ApplicationStatusInput:
+    properties:
+      status:
+        enum:
+        - pending
+        - reviewed
+        - interview
+        - rejected
+        - accepted
+        example: interview
+        type: string
+    required:
+    - status
+    type: object
+  models.Conversation:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      participant_one_id:
+        type: integer
+      participant_two_id:
+        type: integer
+    type: object
+  models.ConversationWithStats:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message_count:
+        type: integer
+      participant_one_id:
+        type: integer
+      participant_two_id:
+        type: integer
+    type: object
+  models.EmployerProfile:
+    properties:
+      company_name:
+        example: Tech Innovations Inc.
+        type: string
+      company_size:
+        example: 50-200 employees
+        type: string
+      created_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      description:
+        example: Leading software company focused on building scalable backend systems
+          and cloud solutions.
+        type: string
+      id:
+        example: 1
+        type: integer
+      industry:
+        example: Information Technology
+        type: string
+      location:
+        example: San Francisco, CA
+        type: string
+      logo_url:
+        example: /uploads/logos/company123.png
+        type: string
+      updated_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      user_id:
+        example: 42
+        type: integer
+      website:
+        example: https://www.techinnovations.com
+        type: string
+    type: object
+  models.EmployerProfileInput:
+    properties:
+      company_name:
+        example: Tech Innovations Inc.
+        type: string
+      company_size:
+        example: 50-200 employees
+        type: string
+      description:
+        example: We build secure, scalable, and cloud-native applications.
+        type: string
+      industry:
+        example: Information Technology
+        type: string
+      location:
+        example: San Francisco, CA
+        type: string
+      logo_url:
+        example: /uploads/logos/company123.png
+        type: string
+      website:
+        example: https://www.techinnovations.com
+        type: string
+    required:
+    - company_name
+    type: object
+  models.ErrorInfo:
+    properties:
+      code:
+        description: e.g., "USER_NOT_FOUND"
+        type: string
+      details:
+        description: 'optional: stack trace, etc.'
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        allOf:
+        - $ref: '#/definitions/models.ErrorInfo'
+        description: optional structured error
+      message:
+        description: human-friendly message
+        type: string
+      success:
+        description: "false"
+        type: boolean
+    type: object
+  models.Job:
+    properties:
+      category:
+        example: Engineering
+        type: string
+      company_name:
+        example: Tech Innovations Inc.
+        type: string
+      created_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      description:
+        example: We're looking for a backend engineer experienced in Go, PostgreSQL,
+          and distributed systems.
+        type: string
+      employer_id:
+        example: 42
+        type: integer
+      experience_level:
+        enum:
+        - Entry-level
+        - Mid-level
+        - Senior
+        - Lead
+        example: Mid-level
+        type: string
+      id:
+        example: 1
+        type: integer
+      job_type:
+        example: full_time
+        type: string
+      location:
+        example: Remote
+        type: string
+      logo_url:
+        example: /uploads/logos/company123.png
+        type: string
+      required_skills:
+        items:
+          type: string
+        type: array
+      salary_max:
+        example: 90000
+        type: number
+      salary_min:
+        example: 60000
+        type: number
+      status:
+        example: active
+        type: string
+      title:
+        example: Senior Golang Developer
+        type: string
+      updated_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+    type: object
+  models.JobInput:
+    properties:
+      category:
+        example: Engineering
+        type: string
+      description:
+        example: Work on scalable systems, microservices, and DevOps pipelines.
+        type: string
+      experience_level:
+        enum:
+        - Entry-level
+        - Mid-level
+        - Senior
+        - Lead
+        example: Mid-level
+        type: string
+      job_type:
+        enum:
+        - full_time
+        - part_time
+        - contract
+        - internship
+        - remote
+        example: full_time
+        type: string
+      location:
+        example: Remote
+        type: string
+      required_skills:
+        items:
+          type: string
+        type: array
+      salary_max:
+        example: 90000
+        type: number
+      salary_min:
+        example: 60000
+        type: number
+      status:
+        enum:
+        - active
+        - closed
+        - draft
+        example: active
+        type: string
+      title:
+        example: Senior Golang Developer
+        type: string
+    required:
+    - category
+    - description
+    - job_type
+    - title
+    type: object
+  models.JobSeekerProfile:
+    properties:
+      created_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      experience_level:
+        enum:
+        - Entry-level
+        - Mid-level
+        - Senior
+        - Lead
+        example: Mid-level
+        type: string
+      first_name:
+        example: Ali
+        type: string
+      headline:
+        example: Junior Golang Backend Developer
+        type: string
+      id:
+        example: 1
+        type: integer
+      last_name:
+        example: Khalil
+        type: string
+      location:
+        example: Beirut, Lebanon
+        type: string
+      logo_url:
+        example: /uploads/resumes/ali_pfp.jpeg
+        type: string
+      phone:
+        example: "+96170123456"
+        type: string
+      resume_url:
+        example: /uploads/resumes/ali_resume.pdf
+        type: string
+      skills:
+        items:
+          type: string
+        type: array
+      summary:
+        example: Passionate backend engineer with experience in RESTful APIs and microservices.
+        type: string
+      updated_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      user_id:
+        example: 6
+        type: integer
+    type: object
+  models.JobSeekerProfileInput:
+    properties:
+      experience_level:
+        enum:
+        - Entry-level
+        - Mid-level
+        - Senior
+        - Lead
+        example: Mid-level
+        type: string
+      first_name:
+        example: Ali
+        type: string
+      headline:
+        example: Junior Golang Backend Developer
+        type: string
+      last_name:
+        example: Khalil
+        type: string
+      location:
+        example: Beirut, Lebanon
+        type: string
+      logo_url:
+        example: /uploads/resumes/ali_pfp.jpeg
+        type: string
+      phone:
+        example: "+96170123456"
+        type: string
+      resume_url:
+        example: /uploads/resumes/ali_resume.pdf
+        type: string
+      skills:
+        items:
+          type: string
+        type: array
+      summary:
+        example: Experienced in Go, PostgreSQL, and Docker.
+        type: string
+    required:
+    - first_name
+    - last_name
+    type: object
+  models.LoginInput:
+    properties:
+      email:
+        example: jane@jobportal.com
+        type: string
+      password:
+        example: Str0ngPass!
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.Message:
+    properties:
+      content:
+        type: string
+      conversation_id:
+        description: populated after save
+        type: integer
+      id:
+        type: integer
+      read:
+        type: boolean
+      receiver_id:
+        description: used only when sending
+        type: integer
+      sender_id:
+        type: integer
+      timestamp:
+        type: string
+    type: object
+  models.MessageInput:
+    properties:
+      content:
+        type: string
+      receiver_id:
+        type: integer
+    type: object
+  models.PaginatedResponse:
+    properties:
+      data: {}
+      limit:
+        type: integer
+      message:
+        description: optional message
+        type: string
+      page:
+        type: integer
+      success:
+        description: "true"
+        type: boolean
+      total_items:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  models.SuccessResponse:
+    properties:
+      data:
+        description: main payload
+      message:
+        description: optional message
+        type: string
+      success:
+        description: "true"
+        type: boolean
+    type: object
+  models.TokenResponse:
+    properties:
+      role:
+        example: job_seeker
+        type: string
+      token:
+        description: shortened JWT
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+    type: object
+  models.UnifiedPublicEmployerProfile:
+    properties:
+      company_name:
+        type: string
+      company_size:
+        type: string
+      description:
+        type: string
+      id:
+        example: 456
+        type: integer
+      industry:
+        type: string
+      location:
+        type: string
+      logo_url:
+        type: string
+      profileType:
+        example: employer
+        type: string
+      website:
+        type: string
+    type: object
+  models.UnifiedPublicJobSeekerProfile:
+    properties:
+      bio:
+        type: string
+      experience_level:
+        type: string
+      first_name:
+        type: string
+      headline:
+        type: string
+      id:
+        example: 123
+        type: integer
+      last_name:
+        type: string
+      location:
+        type: string
+      logo_url:
+        type: string
+      profileType:
+        example: job_seeker
+        type: string
+      resume_url:
+        type: string
+      skills:
+        items:
+          type: string
+        type: array
+      website:
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+      email:
+        example: user@example.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      role:
+        example: job_seeker
+        type: string
+      updated_at:
+        example: "2025-04-14T10:18:32Z"
+        type: string
+    type: object
+  models.UserInput:
+    properties:
+      email:
+        example: jane@jobportal.com
+        type: string
+      password:
+        example: Str0ngPass!
+        minLength: 8
+        type: string
+      role:
+        enum:
+        - job_seeker
+        - employer
+        example: employer
+        type: string
+    required:
+    - email
+    - password
+    - role
+    type: object
+info:
+  contact: {}
+  description: |-
+    ## API documentation for Job Seeker platform
+    This API follows a unified response **envelope pattern**. All responses will have `success`, `message`, and `data` or `error` keys. Example:
+
+    Success:
+    ```json
+    { "success": true, "message": "Fetched", "data": { ... } }
+    ```
+
+    Error:
+    ```json
+    { "success": false, "message": "Something went wrong", "error": { "code": "ERROR_CODE" } }
+    ```
+  title: Job Seeker API
+  version: "1.0"
+paths:
+  /applications:
+    post:
+      consumes:
+      - application/json
+      description: 'Submit an application to a job. Requires role: job_seeker'
+      parameters:
+      - description: Application input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.ApplicationInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Application'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Apply for a job
+      tags:
+      - Applications
+  /applications/{id}:
+    delete:
+      description: 'Allows job seekers to delete their own application. Requires role:
+        job_seeker'
+      parameters:
+      - description: Application ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete an application
+      tags:
+      - Applications
+    get:
+      description: 'Retrieve a job application. Requires role: job_seeker (only own)
+        or employer (only own job''s applications).'
+      parameters:
+      - description: Application ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Application'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get application by ID
+      tags:
+      - Applications
+  /applications/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: Allows employers to update the status of applications for their
+        own jobs.
+      parameters:
+      - description: Application ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New status
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.ApplicationStatusInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Application'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update application status
+      tags:
+      - Applications
+  /applications/job-seeker:
+    get:
+      description: Returns all job applications submitted by the current authenticated
+        job seeker.
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Results per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.PaginatedResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Application'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get applications of the current job seeker
+      tags:
+      - Applications
+  /applications/job/{jobId}:
+    get:
+      description: Returns all job applications submitted to a specific job owned
+        by the current employer.
+      parameters:
+      - description: Job ID
+        in: path
+        name: jobId
+        required: true
+        type: integer
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Results per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.PaginatedResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Application'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get applications for a specific job
+      tags:
+      - Applications
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: Login credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.TokenResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Login an existing user
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account and return a JWT token
+      parameters:
+      - description: User input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.TokenResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - auth
+  /chats/:
+    get:
+      produces:
+      - application/json
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.ConversationWithStats'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      - BearerAuth: []
+      summary: Get all conversations with message count
+      tags:
+      - Chat
+      - Chat
+  /chats/{conversation_id}/messages:
+    get:
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: conversation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Message'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get messages in a conversation
+      tags:
+      - Chat
+  /chats/{conversation_id}/read:
+    put:
+      parameters:
+      - description: Conversation ID
+        in: path
+        name: conversation_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Mark all messages in a conversation as read
+      tags:
+      - Chat
+  /chats/{user_id}/messages:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Receiver User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: Message input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.MessageInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Message'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Send a message to a user (creates/fetches conversation)
+      tags:
+      - Chat
+  /employers/{id}:
+    get:
+      description: Returns public-facing company info for the given employer ID
+      parameters:
+      - description: Employer Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.EmployerProfile'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get public employer profile
+      tags:
+      - Employers
+  /employers/profile:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete employer profile
+      tags:
+      - Employers
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.EmployerProfile'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get employer profile
+      tags:
+      - Employers
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Profile input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.EmployerProfileInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.EmployerProfile'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create employer profile
+      tags:
+      - Employers
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Updated profile
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.EmployerProfileInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.EmployerProfile'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update employer profile
+      tags:
+      - Employers
+  /job-seekers/{id}:
+    get:
+      description: Retrieves a public view of a job seeker's profile by ID
+      parameters:
+      - description: Job Seeker Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.JobSeekerProfile'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get public job seeker profile
+      tags:
+      - Job Seekers
+  /job-seekers/profile:
+    delete:
+      description: Deletes the authenticated user's job seeker profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete job seeker profile
+      tags:
+      - Job Seekers
+    get:
+      description: Retrieves the authenticated job seeker's profile
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.JobSeekerProfile'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get job seeker profile
+      tags:
+      - Job Seekers
+    post:
+      consumes:
+      - application/json
+      description: Creates a new job seeker profile for the authenticated user
+      parameters:
+      - description: Profile input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.JobSeekerProfileInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.JobSeekerProfile'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create job seeker profile
+      tags:
+      - Job Seekers
+    put:
+      consumes:
+      - application/json
+      description: Updates the authenticated user's job seeker profile
+      parameters:
+      - description: Profile input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.JobSeekerProfileInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.JobSeekerProfile'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update job seeker profile
+      tags:
+      - Job Seekers
+  /jobs:
+    get:
+      consumes:
+      - application/json
+      description: Search public job listings using filters and pagination
+      parameters:
+      - description: Job title
+        in: query
+        name: title
+        type: string
+      - description: Location
+        in: query
+        name: location
+        type: string
+      - description: Job type
+        enum:
+        - full_time
+        - part_time
+        - contract
+        - internship
+        - remote
+        in: query
+        name: job_type
+        type: string
+      - description: Minimum salary
+        in: query
+        name: min_salary
+        type: number
+      - description: Experience level
+        enum:
+        - Entry-level
+        - Mid-level
+        - Senior
+        - Lead
+        in: query
+        name: experience_level
+        type: string
+      - collectionFormat: csv
+        description: Comma-separated skill list
+        in: query
+        items:
+          type: string
+        name: skills
+        type: array
+      - description: Employer user ID to filter jobs by company
+        in: query
+        name: employer_user_id
+        type: integer
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Results per page (max 100)
+        in: query
+        name: limit
+        type: integer
+      - description: category or industry
+        in: query
+        name: category
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.PaginatedResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Job'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Search for jobs
+      tags:
+      - Jobs
+    post:
+      consumes:
+      - application/json
+      description: Employers can create a new job posting
+      parameters:
+      - description: Job input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.JobInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Job'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new job posting
+      tags:
+      - Jobs
+  /jobs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Employers can delete their job postings
+      parameters:
+      - description: Job ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a job posting
+      tags:
+      - Jobs
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a job posting by its ID
+      parameters:
+      - description: Job ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Job'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get a job by ID
+      tags:
+      - Jobs
+    put:
+      consumes:
+      - application/json
+      description: Employers can update their job postings
+      parameters:
+      - description: Job ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated job input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.JobInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Job'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a job posting
+      tags:
+      - Jobs
+  /jobs/employer/listings:
+    get:
+      description: Returns a paginated list of jobs created by the authenticated employer
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Results per page (max 100)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.PaginatedResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Job'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List jobs by the current employer
+      tags:
+      - Jobs
+  /profile/{id}:
+    get:
+      description: Returns either a job seeker or employer profile based on user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UnifiedPublicEmployerProfile'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get public profile by user ID
+      tags:
+      - Public
+  /upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Uploads a file and returns its public URL
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload a file (image or document)
+      tags:
+      - Upload
+  /users/me:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes the currently authenticated user account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete current user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Returns the currently authenticated user's `profile`
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - Users
+schemes:
+- http
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and your JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
