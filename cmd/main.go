@@ -67,10 +67,14 @@ func main() {
 
 	router := gin.Default()
 	router.RedirectFixedPath = false
-	// static files
-	router.Static(cfg.StaticURL, cfg.StaticPath)
+	
+	// Global middleware (order matters!)
 	router.Use(middleware.CORS(cfg.AllowedOrigins))
 	router.Use(middleware.ConfigMiddleware(cfg.StaticURL, cfg.UploadsPath))
+	
+	// Static files (after middleware)
+	router.Static(cfg.StaticURL, cfg.StaticPath)
+	
 	apiGroup := router.Group(cfg.APIPrefix)
 
 	authGroup := apiGroup.Group("/auth") // /api/auth
