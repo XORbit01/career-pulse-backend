@@ -2,6 +2,8 @@
 
 A Go-based REST API for the Career Pulse job seeking platform, featuring user authentication, job management, and real-time chat functionality.
 
+> **Frontend Repository**: [https://github.com/XORbit01/career-pulse-frontend](https://github.com/XORbit01/career-pulse-frontend)
+
 ## Features
 
 - **User Authentication**: JWT-based authentication with role-based access control
