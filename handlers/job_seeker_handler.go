@@ -14,12 +14,14 @@ import (
 // JobSeekerHandler handles job seeker profile routes
 type JobSeekerHandler struct {
 	jobSeekerRepo *repos.JobSeekerRepository
+	userRepo      *repos.UserRepository
 }
 
 // NewJobSeekerHandler creates a new JobSeekerHandler
 func NewJobSeekerHandler(db *sql.DB) *JobSeekerHandler {
 	return &JobSeekerHandler{
 		jobSeekerRepo: repos.NewJobSeekerRepository(db),
+		userRepo:      repos.NewUserRepository(db),
 	}
 }
 
@@ -59,6 +61,16 @@ func (h *JobSeekerHandler) CreateProfile(c *gin.Context) {
 			Success: false,
 			Message: "Unauthorized access",
 			Error:   &models.ErrorInfo{Code: "UNAUTHORIZED"},
+		})
+		return
+	}
+
+	// Verify that the user actually exists in the database
+	if _, err := h.userRepo.GetByID(userID.(int)); err != nil {
+		c.JSON(http.StatusUnauthorized, models.ErrorResponse{
+			Success: false,
+			Message: "User not found - please log in again",
+			Error:   &models.ErrorInfo{Code: "USER_NOT_FOUND"},
 		})
 		return
 	}
