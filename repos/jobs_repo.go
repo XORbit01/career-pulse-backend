@@ -75,6 +75,7 @@ func (r *JobRepository) GetByID(id int) (*models.Job, error) {
 	`
 
 	var job models.Job
+	var category sql.NullString
 	err := r.db.QueryRow(query, id).Scan(
 		&job.ID,
 		&job.EmployerID,
@@ -90,7 +91,7 @@ func (r *JobRepository) GetByID(id int) (*models.Job, error) {
 		&job.CreatedAt,
 		&job.UpdatedAt,
 		&job.CompanyName,
-		&job.Category,
+		&category,
 		&job.LogoURL,
 	)
 	if err != nil {
@@ -98,6 +99,10 @@ func (r *JobRepository) GetByID(id int) (*models.Job, error) {
 			return nil, errors.New("job not found")
 		}
 		return nil, err
+	}
+
+	if category.Valid {
+		job.Category = category.String
 	}
 
 	return &job, nil
@@ -254,6 +259,7 @@ func (r *JobRepository) SearchJobs(params models.JobSearchParams) ([]*models.Job
 	for rows.Next() {
 		var job models.Job
 		var salaryMin, salaryMax sql.NullFloat64
+		var category sql.NullString
 
 		err := rows.Scan(
 			&job.ID,
@@ -270,7 +276,7 @@ func (r *JobRepository) SearchJobs(params models.JobSearchParams) ([]*models.Job
 			&job.CreatedAt,
 			&job.UpdatedAt,
 			&job.CompanyName,
-			&job.Category,
+			&category,
 			&job.LogoURL,
 		)
 		if err != nil {
@@ -281,6 +287,9 @@ func (r *JobRepository) SearchJobs(params models.JobSearchParams) ([]*models.Job
 		}
 		if salaryMax.Valid {
 			job.SalaryMax = &salaryMax.Float64
+		}
+		if category.Valid {
+			job.Category = category.String
 		}
 		jobs = append(jobs, &job)
 	}
@@ -322,6 +331,7 @@ func (r *JobRepository) GetByEmployerID(employerID int, page, limit int) ([]*mod
 	for rows.Next() {
 		var job models.Job
 		var salaryMin, salaryMax sql.NullFloat64
+		var category sql.NullString
 
 		err := rows.Scan(
 			&job.ID,
@@ -338,7 +348,7 @@ func (r *JobRepository) GetByEmployerID(employerID int, page, limit int) ([]*mod
 			&job.CreatedAt,
 			&job.UpdatedAt,
 			&job.CompanyName,
-			&job.Category,
+			&category,
 			&job.LogoURL,
 		)
 		if err != nil {
@@ -349,6 +359,9 @@ func (r *JobRepository) GetByEmployerID(employerID int, page, limit int) ([]*mod
 		}
 		if salaryMax.Valid {
 			job.SalaryMax = &salaryMax.Float64
+		}
+		if category.Valid {
+			job.Category = category.String
 		}
 		jobs = append(jobs, &job)
 	}
