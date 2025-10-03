@@ -1,0 +1,13 @@
+[Unit]
+Description=Job Seeker API Service
+After=network.target
+
+[Service]
+ExecStart=/root/jobseeker/jobseeker
+Restart=on-failure
+User=root
+WorkingDirectory=/root/jobseeker
+
+[Install]
+WantedBy=multi-user.target
+
